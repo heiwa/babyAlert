@@ -1,6 +1,7 @@
 import discord
 import sys
 import os
+import asyncio
 from pathlib import Path
 from flask import Flask, request
 
@@ -22,12 +23,14 @@ app = Flask(__name__)
 def baby_cry():
     print("赤ちゃんが泣いてる！")
 
+    asyncio.run(sendAlert())
+
+
+async def sendAlert():
     for guild in bot.guilds:
         channel = discord.utils.get(guild.text_channels, name=ALERT_CHANNEL_NAME)
-            if channel:
-                await channel.send("@ukauka 志輝が泣いてる！！！")
-
-    return "ok"
+        if channel:
+            await channel.send("@ukauka 志輝が泣いてる！！！")
 
 app.run(host="0.0.0.0", port=5000)
 
