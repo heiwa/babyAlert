@@ -1,0 +1,6 @@
+discord.py
+openai
+httpx
+requests
+flask
+line-bot-sdk
