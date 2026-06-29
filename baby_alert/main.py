@@ -3,7 +3,8 @@ import sys
 import os
 import asyncio
 from pathlib import Path
-from flask import Flask, request
+from fastapi import FastAPI
+import uvicorn
 
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
@@ -15,13 +16,16 @@ intents = discord.Intents.default()
 
 bot = discord.Client(intents=intents)
 
-app = Flask(__name__)
+#app = Flask(__name__)
+app = FastAPI()
 
-@app.route("/baby_cry", methods=["POST"])
-def baby_cry():
+@app.post("/baby_cry")
+async def baby_cry():
     print("赤ちゃんが泣いてる！")
 
-    asyncio.run(sendAlert())
+    await sendAlert()
+    
+    return {"status": "ok"}
 
 
 async def sendAlert():
@@ -30,10 +34,23 @@ async def sendAlert():
         if channel:
             await channel.send("@ukauka 志輝が泣いてる！！！")
 
+@bot.event
+async def on_ready():
+    print(f"logged in as {bot.user})
+
+async def start_web():
+    config = uvicorn.Config(
+        app,
+        host="0.0.0.0",
+        port=5000
+    )
+    server = uvicorn.Server(config)
+    await server.serve()
+
 async def main():
     await asyncio.gather(
-        app.run(host="0.0.0.0", port=5000),
-        bot.run(os.getenv("DISCORD_BOT_TOKEN"))
+        bot.start(os.getenv("DISCORD_BOT_TOKEN")),
+        start_web()
     )
 
 asyncio.run(main())
