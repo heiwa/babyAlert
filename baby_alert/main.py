@@ -42,7 +42,7 @@ async def start_web():
     config = uvicorn.Config(
         app,
         host="0.0.0.0",
-        port=5000
+        port=int(os.environ["PORT"])
     )
     server = uvicorn.Server(config)
     await server.serve()
