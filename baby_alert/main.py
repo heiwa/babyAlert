@@ -36,7 +36,7 @@ async def sendAlert():
 
 @bot.event
 async def on_ready():
-    print(f"logged in as {bot.user})
+    print(f"logged in as {bot.user}")
 
 async def start_web():
     config = uvicorn.Config(
