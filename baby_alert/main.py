@@ -14,8 +14,6 @@ ALERT_CHANNEL_NAME="志輝"
 intents = discord.Intents.default()
 
 bot = discord.Client(intents=intents)
-bot.run(os.getenv("DISCORD_BOT_TOKEN"))
-
 
 app = Flask(__name__)
 
@@ -33,4 +31,6 @@ async def sendAlert():
             await channel.send("@ukauka 志輝が泣いてる！！！")
 
 app.run(host="0.0.0.0", port=5000)
+
+bot.run(os.getenv("DISCORD_BOT_TOKEN"))
 
