@@ -30,7 +30,11 @@ async def sendAlert():
         if channel:
             await channel.send("@ukauka 志輝が泣いてる！！！")
 
-app.run(host="0.0.0.0", port=5000)
+async def main():
+    await asyncio.gather(
+        app.run(host="0.0.0.0", port=5000),
+        bot.run(os.getenv("DISCORD_BOT_TOKEN"))
+    )
 
-bot.run(os.getenv("DISCORD_BOT_TOKEN"))
+asyncio.run(main())
 
