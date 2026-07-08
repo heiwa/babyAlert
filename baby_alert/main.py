@@ -10,6 +10,7 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 print("環境変数一覧:", list(os.environ.keys()))
 ALERT_CHANNEL_NAME="志輝"
+USER_ID= "515881330253365263"
 
 # インテントの設定
 intents = discord.Intents.default()
@@ -32,7 +33,7 @@ async def sendAlert():
     for guild in bot.guilds:
         channel = discord.utils.get(guild.text_channels, name=ALERT_CHANNEL_NAME)
         if channel:
-            await channel.send("@ukauka 志輝が泣いてる！！！")
+            await channel.send(f"@{USER_ID} 志輝が泣いてる！！！")
 
 @bot.event
 async def on_ready():
