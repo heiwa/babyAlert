@@ -33,7 +33,7 @@ async def sendAlert():
     for guild in bot.guilds:
         channel = discord.utils.get(guild.text_channels, name=ALERT_CHANNEL_NAME)
         if channel:
-            await channel.send(f"@{USER_ID} 志輝が泣いてる！！！")
+            await channel.send(f"<@{USER_ID}> 志輝が泣いてる！！！")
 
 @bot.event
 async def on_ready():
